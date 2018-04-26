@@ -19,7 +19,7 @@ void SetData(int &n, double &a, double &b){
 
 void SetNodes(vector<double> &nodesArr, int n, int a, int b){
     // equal distance
-    double h = (b - a) / n;
+    double h = (b - a) / double(n);
     for (int i = 0; i < n + 1; i++){
         nodesArr.push_back(a + i * h);
     }
@@ -41,11 +41,11 @@ double Lagrange(double pointX, std::map<double, double> &nodesMap){
     for(auto i : nodesMap){
         double jResult = 1;
         for(auto j : nodesMap){
-            if(i->first != j->first){
-                jResult *= (pointX - j->first) / (i->first- j->first);
+            if(i.first != j.first){
+                jResult *= (pointX - j.first) / (i.first- j.first);
             }
         }
-        result += jResult * i->second;
+        result += jResult * i.second;
     }
     return result;
 }
@@ -56,6 +56,8 @@ void SetTargetPoints(vector<double> &targetPointsArr, int np, int a, int b) {
         targetPointsArr.push_back(a + j * hp);
     }
 }
+
+//void get
 
     int main() {
         int n;
@@ -72,7 +74,7 @@ void SetTargetPoints(vector<double> &targetPointsArr, int np, int a, int b) {
         SetTargetPoints(targetPointsArr, np, a, b);
 
         for (int i = 0; i < n + 1; i++)
-            cout << nodesArr[i];
+            cout << nodesArr[i] << endl;
 
         return 0;
     }
