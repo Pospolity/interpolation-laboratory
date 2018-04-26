@@ -50,11 +50,12 @@ double Lagrange(double pointX, std::map<double, double> &nodesMap){
     return result;
 }
 
-void SetTargetPoints(vector<double> &targetPointsArr, int np, int a, int b){
+void SetTargetPoints(vector<double> &targetPointsArr, int np, int a, int b) {
     double hp = (b - a) / np;
-    for (int j = 0; j <= np ; j++){
+    for (int j = 0; j <= np; j++) {
         targetPointsArr.push_back(a + j * hp);
     }
+}
 
     int main() {
         int n;
