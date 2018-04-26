@@ -59,12 +59,12 @@ void SetTargetPoints(vector<double> &targetPointsArr, int np, int a, int b) {
 }
 
 void calculateInterpolationOnTargetPoints(std::map<double, double> &targetPointsInterpolationMap, vector<double> &targetPointsArr, int np){
-    for(int i =0; i < np; i++)
+    for(int i =0; i <= np; i++)
         targetPointsInterpolationMap[targetPointsArr[i]] = InterpolationFunction(targetPointsArr[i]);
 }
 
 void calculateLagrangeOnTargetPoints(std::map<double, double> &targetPointsLagrangeMap, vector<double> &targetPointsArr, int np, std::map<double, double> &nodesMap){
-    for(int i =0; i < np; i++)
+    for(int i =0; i <= np; i++)
         targetPointsLagrangeMap[targetPointsArr[i]] = Lagrange(targetPointsArr[i], nodesMap);
 }
 
