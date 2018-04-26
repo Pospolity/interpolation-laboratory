@@ -20,7 +20,7 @@ void SetData(int &n, double &a, double &b){
 void SetNodes(vector<double> &nodesArr, int n, int a, int b){
     // equal distance
     double h = (b - a) / double(n);
-    for (int i = 0; i < n + 1; i++){
+    for (int i = 0; i <= n; i++){
         nodesArr.push_back(a + i * h);
     }
     // TODO: optimal distance
@@ -31,9 +31,9 @@ double InterpolationFunction(double x){
     return abs(cos(x) * x);
 }
 
-void fillNodesMap(std::map<double, double> &nodesMap, double x[], int n){
+void fillNodesMap(std::map<double, double> &nodesMap, vector<double> nodesArr, int n){
     for(int i =0; i < n; i++)
-        nodesMap[x[i]] = InterpolationFunction(x[i]);
+        nodesMap[nodesArr[i]] = InterpolationFunction(nodesArr[i]);
 }
 
 double Lagrange(double pointX, std::map<double, double> &nodesMap){
@@ -57,7 +57,10 @@ void SetTargetPoints(vector<double> &targetPointsArr, int np, int a, int b) {
     }
 }
 
-//void get
+void calculateLagrangeOnTargetPoints(std::map<double, double> &targetPointsInterpolationMap, vector<double> targetPointsArr, int np){
+    for(int i =0; i < np; i++)
+        targetPointsInterpolationMap[targetPointsArr[i]] = InterpolationFunction(targetPointsArr[i]);
+}
 
     int main() {
         int n;
@@ -70,8 +73,14 @@ void SetTargetPoints(vector<double> &targetPointsArr, int np, int a, int b) {
         vector<double> nodesArr;
         SetNodes(nodesArr, n, a, b);
 
+        fillNodesMap(nodesMap, nodesArr, n);
+
         vector<double> targetPointsArr;
         SetTargetPoints(targetPointsArr, np, a, b);
+
+        std::map<double, double> targetPointsInterpolationMap;
+        calculateLagrangeOnTargetPoints(targetPointsInterpolationMap, targetPointsArr, np);
+
 
         for (int i = 0; i < n + 1; i++)
             cout << nodesArr[i] << endl;
