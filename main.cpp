@@ -2,6 +2,7 @@
 #include <vector>
 #include "cmath"
 #include <map>
+#include <fstream>
 
 using namespace std;
 
@@ -51,15 +52,20 @@ double Lagrange(double pointX, std::map<double, double> &nodesMap){
 }
 
 void SetTargetPoints(vector<double> &targetPointsArr, int np, int a, int b) {
-    double hp = (b - a) / np;
+    double hp = (b - a) / (double)np;
     for (int j = 0; j <= np; j++) {
         targetPointsArr.push_back(a + j * hp);
     }
 }
 
-void calculateLagrangeOnTargetPoints(std::map<double, double> &targetPointsInterpolationMap, vector<double> targetPointsArr, int np){
+void calculateInterpolationOnTargetPoints(std::map<double, double> &targetPointsInterpolationMap, vector<double> &targetPointsArr, int np){
     for(int i =0; i < np; i++)
         targetPointsInterpolationMap[targetPointsArr[i]] = InterpolationFunction(targetPointsArr[i]);
+}
+
+void calculateLagrangeOnTargetPoints(std::map<double, double> &targetPointsLagrangeMap, vector<double> &targetPointsArr, int np, std::map<double, double> &nodesMap){
+    for(int i =0; i < np; i++)
+        targetPointsLagrangeMap[targetPointsArr[i]] = Lagrange(targetPointsArr[i], nodesMap);
 }
 
     int main() {
@@ -67,23 +73,38 @@ void calculateLagrangeOnTargetPoints(std::map<double, double> &targetPointsInter
         double a, b;
         int np = 150;
 
-        std::map<double, double> nodesMap;
         SetData(n, a, b);
 
         vector<double> nodesArr;
         SetNodes(nodesArr, n, a, b);
 
+        std::map<double, double> nodesMap;
         fillNodesMap(nodesMap, nodesArr, n);
 
         vector<double> targetPointsArr;
         SetTargetPoints(targetPointsArr, np, a, b);
 
         std::map<double, double> targetPointsInterpolationMap;
-        calculateLagrangeOnTargetPoints(targetPointsInterpolationMap, targetPointsArr, np);
+        calculateInterpolationOnTargetPoints(targetPointsInterpolationMap, targetPointsArr, np);
+
+        std::map<double, double> targetPointsLagrangeMap;
+        calculateLagrangeOnTargetPoints(targetPointsLagrangeMap, targetPointsArr, np, nodesMap);
 
 
-        for (int i = 0; i < n + 1; i++)
+        cout << "nodesArr:" << endl;
+        for (int i = 0; i <= n ; i++)
             cout << nodesArr[i] << endl;
+
+        cout << endl;
+
+        cout << "targetPointsLagrangeMap:" << endl;
+        for (int i = 0; i < n + 1; i++)
+            cout << targetPointsLagrangeMap[nodesArr[i]] << endl;
+
+        /*ofstream toFile;
+        toFile.open("data.csv");
+
+        toFile << */
 
         return 0;
     }
