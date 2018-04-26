@@ -90,21 +90,71 @@ void calculateLagrangeOnTargetPoints(std::map<double, double> &targetPointsLagra
         std::map<double, double> targetPointsLagrangeMap;
         calculateLagrangeOnTargetPoints(targetPointsLagrangeMap, targetPointsArr, np, nodesMap);
 
-
-        cout << "nodesArr:" << endl;
+        cout << "x:" << endl;
         for (int i = 0; i <= n ; i++)
-            cout << nodesArr[i] << endl;
+            cout << nodesArr[i] << "    ";
 
         cout << endl;
 
-        cout << "targetPointsLagrangeMap:" << endl;
-        for (int i = 0; i < n + 1; i++)
-            cout << targetPointsLagrangeMap[nodesArr[i]] << endl;
+        cout << "f(x):" << endl;
+        for (int i = 0; i <= n ; i++)
+            cout << nodesMap[nodesArr[i]] << "    ";
 
-        /*ofstream toFile;
+        cout << endl;
+
+        cout << "xpj:" << endl;
+        for (int i = 0; i <= np; i++)
+            cout << targetPointsArr[i] << "  ";
+
+        cout << endl;
+
+        cout << "f(xpj):" << endl;
+        for (int i = 0; i <= np; i++)
+            cout << targetPointsInterpolationMap[targetPointsArr[i]] << "  ";
+
+        cout << endl;
+
+        cout << "Ln(xpj):" << endl;
+        for (int i = 0; i <= np; i++)
+            cout << targetPointsLagrangeMap[targetPointsArr[i]] << "   ";
+
+
+
+
+        // save to file
+
+        ofstream toFile;
         toFile.open("data.csv");
 
-        toFile << */
+        toFile << "x:" << endl;
+        for (int i = 0; i <= n ; i++)
+            toFile << nodesArr[i] << ";";
+
+        toFile << endl;
+
+        toFile << "f(x):" << endl;
+        for (int i = 0; i <= n ; i++)
+            toFile << nodesMap[nodesArr[i]] << ";";
+
+        toFile << endl;
+
+        toFile << "xpj:" << endl;
+        for (int i = 0; i <= np; i++)
+            toFile << targetPointsArr[i] << ";";
+
+        toFile << endl;
+
+        toFile << "f(xpj):" << endl;
+        for (int i = 0; i <= np; i++)
+            toFile << targetPointsInterpolationMap[targetPointsArr[i]] << ";";
+
+        toFile << endl;
+
+        toFile << "Ln(xpj):" << endl;
+        for (int i = 0; i <= np; i++)
+            toFile << targetPointsLagrangeMap[targetPointsArr[i]] << ";";
+
+        toFile.close();
 
         return 0;
     }
