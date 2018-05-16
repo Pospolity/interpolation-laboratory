@@ -147,31 +147,31 @@ void calculateLagrangeOnTargetPoints(std::map<double, double> &targetPointsLagra
             // save to file
             toFile << "n = " << n << ":" << endl;
 
-            toFile << "x:" << endl;
+            toFile << "x;";
             for (int i = 0; i <= n; i++)
                 toFile << nodesArr[i] << ";";
 
             toFile << endl;
 
-            toFile << "f(x):" << endl;
+            toFile << "f(x);";
             for (int i = 0; i <= n; i++)
                 toFile << nodesMap[nodesArr[i]] << ";";
 
             toFile << endl;
 
-            toFile << "xpj:" << endl;
+            toFile << "xpj;";
             for (int i = 0; i <= np; i++)
                 toFile << targetPointsArr[i] << ";";
 
             toFile << endl;
 
-            toFile << "f(xpj):" << endl;
+            toFile << "f(xpj);";
             for (int i = 0; i <= np; i++)
                 toFile << targetPointsInterpolationMap[targetPointsArr[i]] << ";";
 
             toFile << endl;
 
-            toFile << "Ln(xpj):" << endl;
+            toFile << "Ln(xpj);";
             for (int i = 0; i <= np; i++)
                 toFile << targetPointsLagrangeMap[targetPointsArr[i]] << ";";
 
