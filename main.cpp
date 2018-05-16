@@ -20,6 +20,10 @@ void SetData(int &n, double &a, double &b){
 
 enum nodesDistanceStrategy {EQUAL = 1, OPTIMAL = 2};
 
+double cosFunc(double n, int i){
+    return cos((2*i + 1)/(2*n +2));
+}
+
 void SetNodes(vector<double> &nodesArr, int n, int a, int b, nodesDistanceStrategy distance){
     switch(distance){
         case EQUAL: {
@@ -32,9 +36,8 @@ void SetNodes(vector<double> &nodesArr, int n, int a, int b, nodesDistanceStrate
         case OPTIMAL: {
             double firstPart = 1/2 * (a + b);
             double secondPart = 1/2 * (b - a);
-            auto cosFunc = [n](auto i )->auto { return cos((2*i + 1)/(2*n +2)); };
             for(int i =0; i <= n; i++){
-                nodesArr.push_back(firstPart + secondPart*cosFunc(i));
+                nodesArr.push_back(firstPart + secondPart*cosFunc(n, i));
             }
             break;
         }
