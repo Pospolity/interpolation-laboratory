@@ -18,19 +18,27 @@ void SetData(int &n, double &a, double &b){
     cin >> b;
 };
 
-enum nodesDistanceStrategy {EQUAL, OPTIMAL};
+enum nodesDistanceStrategy {EQUAL = 1, OPTIMAL = 2};
 
 void SetNodes(vector<double> &nodesArr, int n, int a, int b, nodesDistanceStrategy distance){
     switch(distance){
-        case EQUAL:
+        case EQUAL: {
             double h = (b - a) / double(n);
             for (int i = 0; i <= n; i++){
                 nodesArr.push_back(a + i * h);
             }
             break;
-        case OPTIMAL:
-            // TODO: optimal distance
+        }
+        case OPTIMAL: {
+            double firstPart = 1/2 * (a + b);
+            double secondPart = 1/2 * (b - a);
+            auto cosFunc = [n](auto i )->auto { return cos((2*i + 1)/(2*n +2)); };
+            for(int i =0; i <= n; i++){
+                nodesArr.push_back(firstPart + secondPart*cosFunc(i));
+            }
             break;
+        }
+
     }
 }
 
@@ -83,7 +91,7 @@ void calculateLagrangeOnTargetPoints(std::map<double, double> &targetPointsLagra
         SetData(n, a, b);
 
         vector<double> nodesArr;
-        SetNodes(nodesArr, n, a, b);
+        SetNodes(nodesArr, n, a, b, OPTIMAL);
 
         std::map<double, double> nodesMap;
         fillNodesMap(nodesMap, nodesArr, n);
