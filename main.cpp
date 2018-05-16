@@ -18,13 +18,20 @@ void SetData(int &n, double &a, double &b){
     cin >> b;
 };
 
-void SetNodes(vector<double> &nodesArr, int n, int a, int b){
-    // equal distance
-    double h = (b - a) / double(n);
-    for (int i = 0; i <= n; i++){
-        nodesArr.push_back(a + i * h);
+enum nodesDistanceStrategy {EQUAL, OPTIMAL};
+
+void SetNodes(vector<double> &nodesArr, int n, int a, int b, nodesDistanceStrategy distance){
+    switch(distance){
+        case EQUAL:
+            double h = (b - a) / double(n);
+            for (int i = 0; i <= n; i++){
+                nodesArr.push_back(a + i * h);
+            }
+            break;
+        case OPTIMAL:
+            // TODO: optimal distance
+            break;
     }
-    // TODO: optimal distance
 }
 
 
