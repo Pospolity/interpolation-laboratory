@@ -8,8 +8,8 @@ using namespace std;
 
 // 1)
 void SetData(int &n, double &a, double &b){
-    cout << "Podaj n ";
-    cin >> n;
+    //cout << "Podaj n ";
+    //cin >> n;
 
     cout << "Podaj a ";
     cin >> a;
@@ -90,85 +90,93 @@ void calculateLagrangeOnTargetPoints(std::map<double, double> &targetPointsLagra
 
         SetData(n, a, b);
 
-        vector<double> nodesArr;
-        SetNodes(nodesArr, n, a, b, OPTIMAL);
-
-        std::map<double, double> nodesMap;
-        fillNodesMap(nodesMap, nodesArr, n);
-
-        vector<double> targetPointsArr;
-        SetTargetPoints(targetPointsArr, np, a, b);
-
-        std::map<double, double> targetPointsInterpolationMap;
-        calculateInterpolationOnTargetPoints(targetPointsInterpolationMap, targetPointsArr, np);
-
-        std::map<double, double> targetPointsLagrangeMap;
-        calculateLagrangeOnTargetPoints(targetPointsLagrangeMap, targetPointsArr, np, nodesMap);
-
-        cout << "x:" << endl;
-        for (int i = 0; i <= n ; i++)
-            cout << nodesArr[i] << "    ";
-
-        cout << endl;
-
-        cout << "f(x):" << endl;
-        for (int i = 0; i <= n ; i++)
-            cout << nodesMap[nodesArr[i]] << "    ";
-
-        cout << endl;
-
-        cout << "xpj:" << endl;
-        for (int i = 0; i <= np; i++)
-            cout << targetPointsArr[i] << "  ";
-
-        cout << endl;
-
-        cout << "f(xpj):" << endl;
-        for (int i = 0; i <= np; i++)
-            cout << targetPointsInterpolationMap[targetPointsArr[i]] << "  ";
-
-        cout << endl;
-
-        cout << "Ln(xpj):" << endl;
-        for (int i = 0; i <= np; i++)
-            cout << targetPointsLagrangeMap[targetPointsArr[i]] << "   ";
-
-
-
-
-        // save to file
+        int nArr[] = {7, 8, 15, 18};
 
         ofstream toFile;
         toFile.open("data.csv");
 
-        toFile << "x:" << endl;
-        for (int i = 0; i <= n ; i++)
-            toFile << nodesArr[i] << ";";
+        for (int i = 0; i < 4; i++) {
+            n = nArr[i];
 
-        toFile << endl;
+            vector<double> nodesArr;
+            SetNodes(nodesArr, n, a, b, OPTIMAL);
 
-        toFile << "f(x):" << endl;
-        for (int i = 0; i <= n ; i++)
-            toFile << nodesMap[nodesArr[i]] << ";";
+            std::map<double, double> nodesMap;
+            fillNodesMap(nodesMap, nodesArr, n);
 
-        toFile << endl;
+            vector<double> targetPointsArr;
+            SetTargetPoints(targetPointsArr, np, a, b);
 
-        toFile << "xpj:" << endl;
-        for (int i = 0; i <= np; i++)
-            toFile << targetPointsArr[i] << ";";
+            std::map<double, double> targetPointsInterpolationMap;
+            calculateInterpolationOnTargetPoints(targetPointsInterpolationMap, targetPointsArr, np);
 
-        toFile << endl;
+            std::map<double, double> targetPointsLagrangeMap;
+            calculateLagrangeOnTargetPoints(targetPointsLagrangeMap, targetPointsArr, np, nodesMap);
 
-        toFile << "f(xpj):" << endl;
-        for (int i = 0; i <= np; i++)
-            toFile << targetPointsInterpolationMap[targetPointsArr[i]] << ";";
+            cout << "x:" << endl;
+            for (int i = 0; i <= n; i++)
+                cout << nodesArr[i] << "    ";
 
-        toFile << endl;
+            cout << endl;
 
-        toFile << "Ln(xpj):" << endl;
-        for (int i = 0; i <= np; i++)
-            toFile << targetPointsLagrangeMap[targetPointsArr[i]] << ";";
+            cout << "f(x):" << endl;
+            for (int i = 0; i <= n; i++)
+                cout << nodesMap[nodesArr[i]] << "    ";
 
+            cout << endl;
+
+            cout << "xpj:" << endl;
+            for (int i = 0; i <= np; i++)
+                cout << targetPointsArr[i] << "  ";
+
+            cout << endl;
+
+            cout << "f(xpj):" << endl;
+            for (int i = 0; i <= np; i++)
+                cout << targetPointsInterpolationMap[targetPointsArr[i]] << "  ";
+
+            cout << endl;
+
+            cout << "Ln(xpj):" << endl;
+            for (int i = 0; i <= np; i++)
+                cout << targetPointsLagrangeMap[targetPointsArr[i]] << "   ";
+
+
+
+
+            // save to file
+            toFile << "n = " << n << ":" << endl;
+
+            toFile << "x:" << endl;
+            for (int i = 0; i <= n; i++)
+                toFile << nodesArr[i] << ";";
+
+            toFile << endl;
+
+            toFile << "f(x):" << endl;
+            for (int i = 0; i <= n; i++)
+                toFile << nodesMap[nodesArr[i]] << ";";
+
+            toFile << endl;
+
+            toFile << "xpj:" << endl;
+            for (int i = 0; i <= np; i++)
+                toFile << targetPointsArr[i] << ";";
+
+            toFile << endl;
+
+            toFile << "f(xpj):" << endl;
+            for (int i = 0; i <= np; i++)
+                toFile << targetPointsInterpolationMap[targetPointsArr[i]] << ";";
+
+            toFile << endl;
+
+            toFile << "Ln(xpj):" << endl;
+            for (int i = 0; i <= np; i++)
+                toFile << targetPointsLagrangeMap[targetPointsArr[i]] << ";";
+
+            toFile << endl << endl;
+        }
         toFile.close();
 
         return 0;
