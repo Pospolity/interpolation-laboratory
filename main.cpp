@@ -48,7 +48,7 @@ double InterpolationFunction(double x){
 }
 
 void fillNodesMap(std::map<double, double> &nodesMap, vector<double> nodesArr, int n){
-    for(int i =0; i < n; i++)
+    for(int i =0; i <= n; i++)
         nodesMap[nodesArr[i]] = InterpolationFunction(nodesArr[i]);
 }
 
